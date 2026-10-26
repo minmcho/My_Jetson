@@ -5,6 +5,7 @@ Appends one row per format to results/results.csv.
 """
 import argparse
 import csv
+import os
 import platform
 import re
 import statistics
@@ -55,21 +56,46 @@ class PowerSampler:
         return round(statistics.mean(self.samples) / 1000, 2) if self.samples else ""
 
 
-def board_info():
-    info = {"board": platform.node(), "jetpack": "", "power_mode": ""}
-    model = Path("/proc/device-tree/model")
-    if model.exists():
-        info["board"] = model.read_text().strip("\x00").strip()
-    rel = Path("/etc/nv_tegra_release")
-    if rel.exists():
-        info["jetpack"] = rel.read_text().splitlines()[0][:60]
+def _read(path):
+    try:
+        return Path(path).read_text().strip("\x00").strip()
+    except OSError:
+        return ""
+
+
+def power_mode_name():
+    """Current nvpmodel mode. Works on the host, or in Docker when /var/lib/nvpmodel
+    and /etc/nvpmodel.conf are mounted (see README)."""
+    if os.environ.get("POWER_MODE"):
+        return os.environ["POWER_MODE"]
     try:
         out = subprocess.run(["nvpmodel", "-q"], capture_output=True, text=True).stdout
         m = re.search(r"NV Power Mode:\s*(\S+)", out)
-        info["power_mode"] = m.group(1) if m else ""
+        if m:
+            return m.group(1)
     except FileNotFoundError:
         pass
-    return info
+    status = _read("/var/lib/nvpmodel/status")
+    m = re.search(r"pmode:(\d+)", status)
+    if not m:
+        return ""
+    mode_id = int(m.group(1))
+    conf = _read("/etc/nvpmodel.conf")
+    m = re.search(rf"POWER_MODEL\s+ID={mode_id}\s+NAME=(\S+?)\s*>", conf)
+    return m.group(1) if m else f"mode {mode_id}"
+
+
+def board_info():
+    board = (os.environ.get("BOARD")
+             or _read("/host/model")
+             or _read("/proc/device-tree/model")
+             or platform.node())
+    jetpack = _read("/etc/nv_tegra_release").splitlines()
+    jetpack = jetpack[0].split(",")[0].lstrip("# ").strip() if jetpack else ""
+    rev = re.search(r"REVISION:\s*([\d.]+)", _read("/etc/nv_tegra_release"))
+    if rev:
+        jetpack = f"{jetpack}.{rev.group(1)}".replace(" (release)", "")
+    return {"board": board, "jetpack": jetpack, "power_mode": power_mode_name()}
 
 
 def time_inference(model, imgsz):

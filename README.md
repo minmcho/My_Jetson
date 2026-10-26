@@ -16,6 +16,9 @@ accuracy cost of each step measured.
    sudo docker run -it --rm --ipc=host --runtime=nvidia \
      -v "$PWD":/work -w /work \
      -v /usr/bin/tegrastats:/usr/bin/tegrastats \
+     -v /proc/device-tree/model:/host/model:ro \
+     -v /var/lib/nvpmodel:/var/lib/nvpmodel:ro \
+     -v /etc/nvpmodel.conf:/etc/nvpmodel.conf:ro \
      ultralytics/ultralytics:latest-jetson-jetpack6
    ```
 3. Inside the container:
@@ -25,6 +28,13 @@ accuracy cost of each step measured.
    ```
    The first run takes a while (TensorRT engine builds + INT8 calibration). Later runs reuse
    the engines in `models/`.
+
+## Saving results to GitHub
+Type `exit` to leave the container first. git does not work on this folder from inside
+the container. Then, on the Jetson:
+```bash
+git add results/ && git commit -m "Add benchmark results" && git push
+```
 
 ## Files
 | File | Purpose |
