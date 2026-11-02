@@ -1,0 +1,9 @@
+timestamp,model,format,imgsz,mean_ms,p95_ms,fps,map50_95,avg_power_w,board,jetpack,power_mode
+2026-10-26T07:25:22,yolo11n,PyTorch FP32,640,30.93,31.55,32.3,0.5076,7.56,e2e33ef8c5ff,"# R39 (release), REVISION: 2.1, GCID: 46758480, BOARD: gener",
+2026-10-26T07:25:38,yolo11n,ONNX FP32,640,24.25,24.43,41.2,0.5054,9.09,e2e33ef8c5ff,"# R39 (release), REVISION: 2.1, GCID: 46758480, BOARD: gener",
+2026-10-26T07:25:45,yolo11n,TensorRT FP16,640,9.09,9.71,110.0,0.5041,8.1,e2e33ef8c5ff,"# R39 (release), REVISION: 2.1, GCID: 46758480, BOARD: gener",
+2026-10-26T07:25:51,yolo11n,TensorRT INT8,640,7.88,8.01,126.8,0.4754,8.28,e2e33ef8c5ff,"# R39 (release), REVISION: 2.1, GCID: 46758480, BOARD: gener",
+2026-10-26T07:37:33,yolo11n,PyTorch FP32,640,30.36,30.89,32.9,0.5076,8.79,e2e33ef8c5ff,"# R39 (release), REVISION: 2.1, GCID: 46758480, BOARD: gener",
+2026-10-26T07:37:47,yolo11n,ONNX FP32,640,24.19,24.46,41.3,0.5054,10.23,e2e33ef8c5ff,"# R39 (release), REVISION: 2.1, GCID: 46758480, BOARD: gener",
+2026-10-26T07:37:53,yolo11n,TensorRT FP16,640,8.94,9.01,111.9,0.5041,9.59,e2e33ef8c5ff,"# R39 (release), REVISION: 2.1, GCID: 46758480, BOARD: gener",
+2026-10-26T07:37:59,yolo11n,TensorRT INT8,640,7.85,8.12,127.4,0.4754,8.89,e2e33ef8c5ff,"# R39 (release), REVISION: 2.1, GCID: 46758480, BOARD: gener",
