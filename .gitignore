@@ -6,3 +6,5 @@ __pycache__/
 *.onnx
 *.engine
 *.cache
+realtime/results/*.mp4
+*.mp4

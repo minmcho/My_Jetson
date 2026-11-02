@@ -28,6 +28,10 @@ mAP was measured on coco128 as a quick accuracy check; full COCO val2017 numbers
 Board power is the average `VDD_IN` reading from `tegrastats` during the timing loop.
 Raw data: [`results/results.csv`](results/results.csv).
 
+## More case studies
+- **[Case study 2: real-time pipeline](realtime/README.md):** camera → TensorRT → ByteTrack
+  tracking → video out, with per-stage timing and end-to-end latency.
+
 ## What it produces
 - `results/results.csv` — latency, FPS, mAP50-95 and average board power for every format
 - `results/report.md` — a ready-to-publish results table
