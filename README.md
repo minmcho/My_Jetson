@@ -31,6 +31,9 @@ Raw data: [`results/results.csv`](results/results.csv).
 ## More case studies
 - **[Case study 2: real-time pipeline](realtime/README.md):** camera → TensorRT → ByteTrack
   tracking → video out, with per-stage timing and end-to-end latency.
+- **[Case study 3: pathology foundation models at the edge](pathology/README.md):** ResNet-18,
+  Phikon, CONCH, UNI and Virchow in FP32/FP16/INT8: speed, power, minutes per slide and
+  in- vs out-of-distribution AUC on CAMELYON17-WILDS.
 
 ## What it produces
 - `results/results.csv` — latency, FPS, mAP50-95 and average board power for every format

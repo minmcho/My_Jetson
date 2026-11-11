@@ -8,3 +8,6 @@ __pycache__/
 *.cache
 realtime/results/*.mp4
 *.mp4
+pathology/engines/
+pathology/data_cache/
+*.calib
